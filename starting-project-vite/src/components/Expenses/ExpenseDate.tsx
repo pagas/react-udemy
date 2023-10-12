@@ -4,7 +4,7 @@ interface ExpenseDateProps {
     date: Date
 }
 
-function ExpenseDate({ date }: ExpenseDateProps) {
+const ExpenseDate = ({ date }: ExpenseDateProps) => {
     const locale = undefined; // use default browser locale
     const month = date.toLocaleString(locale, { month: 'long' });
     const day = date.toLocaleString(locale, { day: '2-digit' });

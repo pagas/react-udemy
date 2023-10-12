@@ -7,7 +7,7 @@ interface ExpensesProps {
     expenses: Expense[]
 }
 
-function Expenses({ expenses }: ExpensesProps) {
+const Expenses = ({ expenses }: ExpensesProps) => {
     return (
         <Card className='expenses'>
             {expenses.map((expense) => (

@@ -8,7 +8,7 @@ interface ExpensesItemProps {
     amount: number
 }
 
-function ExpenseItem({ date, title, amount }: ExpensesItemProps) {
+const ExpenseItem = ({ date, title, amount }: ExpensesItemProps) => {
     return (
         <Card className='expense-item'>
             <ExpenseDate date={date} />
