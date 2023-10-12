@@ -1,6 +1,6 @@
 import './App.css'
-import Expenses from './components/Expenses'
-import { expenses } from './components/expenses-data'
+import Expenses from './components/Expenses/Expenses'
+import { expenses } from './components/Expenses/expenses-data'
 
 function App() {
 
