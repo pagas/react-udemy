@@ -1,14 +1,15 @@
-// import { useState } from 'react'
-
 import './App.css'
 import ExpenseItem from './components/ExpenseItem'
+import { expenses } from './components/expenses-data'
+
 
 function App() {
-  //  const [count, setCount] = useState(0)
 
   return (
     <>
-      <ExpenseItem />
+      {expenses.map((expense) => (        
+        <ExpenseItem key={expense.id} {...expense} />
+      ))}
     </>
   )
 }
