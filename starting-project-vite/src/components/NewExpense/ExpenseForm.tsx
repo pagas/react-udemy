@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react'
 // interface NewExpenseProps {
 // }
 
-enum FieldIdentifier { title, amount, date}
+enum FieldIdentifier { title, amount, date }
 
 
 const ExpenseForm = () => {
@@ -59,7 +59,19 @@ const ExpenseForm = () => {
 
     const submitHandler = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('submitted', enteredTitle, enteredAmount, enteredDate)
+        const expenseData = {
+            title: enteredTitle,
+            amount: enteredAmount,
+            date: new Date(enteredDate)
+        }
+        clearForm();
+        console.log('submitted', expenseData)
+    }
+
+    const clearForm = () => {
+        setEnteredTitle("");
+        setEnteredAmount(0);
+        setEnteredDate("")
     }
 
     return (
@@ -69,7 +81,7 @@ const ExpenseForm = () => {
                     <label>Title</label>
                     <input type="text"
                         value={enteredTitle}
-                        onChange={(event) => inputChangeHandler(FieldIdentifier.title, event.target.value )} />
+                        onChange={(event) => inputChangeHandler(FieldIdentifier.title, event.target.value)} />
                 </div>
 
                 <div className="new-expense__control">
@@ -78,7 +90,7 @@ const ExpenseForm = () => {
                         min={0.01}
                         step={0.01}
                         value={enteredAmount}
-                        onChange={(event) => inputChangeHandler(FieldIdentifier.amount,  event.target.value)} />
+                        onChange={(event) => inputChangeHandler(FieldIdentifier.amount, event.target.value)} />
                 </div>
 
                 <div className="new-expense__control">
@@ -87,7 +99,7 @@ const ExpenseForm = () => {
                         min="2019-01-10"
                         max="2022-12-31"
                         value={enteredDate}
-                        onChange={(event) => inputChangeHandler(FieldIdentifier.date,  event.target.value)} />
+                        onChange={(event) => inputChangeHandler(FieldIdentifier.date, event.target.value)} />
                 </div>
             </div>
 
