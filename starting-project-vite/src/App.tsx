@@ -1,11 +1,15 @@
 import './App.css'
 import Expenses from './components/Expenses/Expenses'
 import { expenses } from './components/Expenses/expenses-data'
+import NewExpense from './components/NewExpense/NewExpense'
 
 const App = () => {
 
   return (
-    <Expenses expenses={expenses} />
+    <>
+      <NewExpense />
+      <Expenses expenses={expenses} />
+    </>
   )
 }
 
