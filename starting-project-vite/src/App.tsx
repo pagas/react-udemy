@@ -1,16 +1,11 @@
 import './App.css'
-import ExpenseItem from './components/ExpenseItem'
+import Expenses from './components/Expenses'
 import { expenses } from './components/expenses-data'
-
 
 function App() {
 
   return (
-    <>
-      {expenses.map((expense) => (        
-        <ExpenseItem key={expense.id} {...expense} />
-      ))}
-    </>
+      <Expenses expenses={expenses} />
   )
 }
 
