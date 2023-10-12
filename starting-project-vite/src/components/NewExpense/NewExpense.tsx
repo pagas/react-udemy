@@ -1,13 +1,22 @@
 import ExpenseForm from './ExpenseForm'
 import './NewExpenses.css'
+import { ExpenseFormData, Expense } from '../../types'
 
-// interface NewExpenseProps {
-// }
+interface NewExpenseProps {
+    onAddExpense: (expense: Expense) => void
+}
 
-const NewExpense = () => {
+const NewExpense = ({onAddExpense}: NewExpenseProps) => {
+    const saveExpenseDataHandler = (data: ExpenseFormData) => {
+        onAddExpense({
+            ...data,
+            id: Math.random().toString(),
+        });
+    }
+    
     return (
         <div className="new-expense">
-            <ExpenseForm />
+            <ExpenseForm onSavingExpenseData={saveExpenseDataHandler}/>
         </div>
     )
 }

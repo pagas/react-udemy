@@ -1,12 +1,14 @@
 import './ExpenseForm.css'
 import { FormEvent, useState } from 'react'
-// interface NewExpenseProps {
-// }
+import { ExpenseFormData } from '../../types'
+interface ExpenseForm {
+    onSavingExpenseData: (expense: ExpenseFormData) => void
+}
 
 enum FieldIdentifier { title, amount, date }
 
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onSavingExpenseData }: ExpenseForm) => {
     const [enteredTitle, setEnteredTitle] = useState("");
     const [enteredAmount, setEnteredAmount] = useState(0);
     const [enteredDate, setEnteredDate] = useState("");
@@ -64,8 +66,8 @@ const ExpenseForm = () => {
             amount: enteredAmount,
             date: new Date(enteredDate)
         }
+        onSavingExpenseData(expenseData);
         clearForm();
-        console.log('submitted', expenseData)
     }
 
     const clearForm = () => {
