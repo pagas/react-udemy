@@ -1,6 +1,7 @@
 import { Expense } from '../types';
+import Card from './Card';
 import ExpenseItem from './ExpenseItem';
-import './Expenses.css';
+import './Expenses.css'
 
 interface ExpensesProps {
     expenses: Expense[]
@@ -8,11 +9,11 @@ interface ExpensesProps {
 
 function Expenses({ expenses }: ExpensesProps) {
     return (
-        <div className='expenses'>
+        <Card className='expenses'>
             {expenses.map((expense) => (
                 <ExpenseItem key={expense.id} {...expense} />
             ))}
-        </div >
+        </Card >
     )
 }
 
