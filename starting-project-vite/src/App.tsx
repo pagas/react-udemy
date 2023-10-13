@@ -10,12 +10,9 @@ const App = () => {
 
   const onAddExpenseHandler = (expense: Expense) => {
     setAllExpenses(previouse => {
-      previouse.push(expense);
-      return previouse;
+      return [expense, ...previouse];
     })
   }
-
-  console.log('alll regenerated!!!')
 
   return (
     <>
