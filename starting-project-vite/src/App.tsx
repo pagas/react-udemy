@@ -15,6 +15,8 @@ const App = () => {
     })
   }
 
+  console.log('alll regenerated!!!')
+
   return (
     <>
       <NewExpense onAddExpense={onAddExpenseHandler} />
