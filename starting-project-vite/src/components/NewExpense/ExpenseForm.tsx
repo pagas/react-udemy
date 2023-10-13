@@ -3,12 +3,13 @@ import { FormEvent, useState } from 'react'
 import { ExpenseFormData } from '../../types'
 interface ExpenseForm {
     onSavingExpenseData: (expense: ExpenseFormData) => void
+    onCancelForm: () => void
 }
 
 enum FieldIdentifier { title, amount, date }
 
 
-const ExpenseForm = ({ onSavingExpenseData }: ExpenseForm) => {
+const ExpenseForm = ({ onSavingExpenseData , onCancelForm}: ExpenseForm) => {
     const [enteredTitle, setEnteredTitle] = useState("");
     const [enteredAmount, setEnteredAmount] = useState(0);
     const [enteredDate, setEnteredDate] = useState("");
@@ -76,6 +77,10 @@ const ExpenseForm = ({ onSavingExpenseData }: ExpenseForm) => {
         setEnteredDate("")
     }
 
+    const clickCancelHandler = () => {
+        onCancelForm();
+    }
+
     return (
         <form onSubmit={submitHandler}>
             <div className="new-expense__controls">
@@ -106,6 +111,7 @@ const ExpenseForm = ({ onSavingExpenseData }: ExpenseForm) => {
             </div>
 
             <div className="new-expense__actions">
+                <button type="button" onClick={clickCancelHandler}>Cancel</button>
                 <button type="submit">Add expense</button>
             </div>
         </form>
