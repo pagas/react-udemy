@@ -16,13 +16,13 @@ const Expenses = ({ expenses }: ExpensesProps) => {
         setFilterYear(year);
     }
 
-    expenses = expenses.filter(expense => expense.date.getFullYear().toString() === filterYear)
+    const filteredExpenses = expenses.filter(expense => expense.date.getFullYear().toString() === filterYear)
 
     return (
         <Card className='expenses'>
             <ExpensesFilter selected={filterYear} onChangeFilter={changeFilterHandler} />
             
-            {expenses.map((expense) => (
+            {filteredExpenses.map((expense) => (
                 <ExpenseItem key={expense.id} {...expense} />
             ))}
         </Card >
