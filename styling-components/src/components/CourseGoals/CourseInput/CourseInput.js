@@ -31,7 +31,7 @@ const CourseInput = props => {
         <input 
             type="text" 
             style={{
-              borderColor: !isValid ? 'red' : 'black',
+              borderColor: !isValid ? 'red' : '#ccc',
               background: !isValid ? 'salmon' : 'transparent'
             }}
             value={enteredValue}
