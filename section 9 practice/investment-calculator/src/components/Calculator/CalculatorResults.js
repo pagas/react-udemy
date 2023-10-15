@@ -20,8 +20,8 @@ const CalculatorResults = (props) => {
 
   return (
     <div>
-      {props.results == null || props.results.length === 0
-        ? <p>No Results</p>
+      {(props.results == null || props.results.length === 0)
+        ? <p style={{textAlign: 'center'}}>No Results</p>
         : <table className={styles.result}>
           <thead>
             <tr>
