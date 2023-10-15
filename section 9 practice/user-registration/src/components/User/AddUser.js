@@ -5,8 +5,8 @@ import Button from "../UI/Button";
 
 
 const initialUserInput = {
-    username: 'Tom Bennet',
-    age: 8
+    username: '',
+    age: 0
 }
 
 const AddUser = (props) => {
@@ -15,11 +15,24 @@ const AddUser = (props) => {
 
     const addUserHandler = (e) => {
         e.preventDefault();
-
-        if (!userInput.username || userInput.age <= 0) {
-            setError('Please enter a valid name and age(non-empty values).');
+      
+        const newUser = {
+            ...userInput,
+            username: userInput.username.trim(),
+        };
+        
+        if (!newUser.username || !newUser.age) {
+            setError('Please enter a valid name and age (non-empty values).');
             return;
         }
+
+        newUser.age = +newUser.age;
+
+        if (userInput.age <= 0) {
+            setError('Please enter valid age (> 0).');
+            return;
+        }
+
 
         props.onAddUser(userInput);
     };
