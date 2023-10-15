@@ -7,6 +7,10 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
+.modal .card {
+  padding: 0;
+}
+
 .modal-main {
   position: fixed;
   width: 80%;
@@ -62,4 +66,3 @@
   font-size: 1.25rem;
   color: white;
 }
-
