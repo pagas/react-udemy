@@ -1,8 +1,22 @@
 import styles from './CalculateResult.module.css';
+import { Currency } from '@depay/local-currency'
+
 
 const CalculatorResults = (props) => {
 
-  console.log('mm', props)
+  // const locale = (navigator && navigator.language) || "en"; console.log(locale);
+  
+  // const formatter = new Intl.NumberFormat(locale, {
+  //   style: 'currency',
+  //   currency: 'USD', // "GBP"
+  //   minimumFractionDigits: 2,
+  //   maximumFractionDigits: 2,
+  // });
+
+  const formatNumber = (number) => {
+    let currency = new Currency({ amount: number })
+    return currency.toString()
+  }
 
   return (
     <div>
@@ -22,10 +36,10 @@ const CalculatorResults = (props) => {
             {props.results.map(record => (
               <tr key={record.year}>
                 <td>{record.year}</td>
-                <td>{record.savingsEndOfYear.toFixed(2)}</td>{/* TOTAL SAVING END OF THE YEAR */}
-                <td>{record.yearlyInterest.toFixed(2)}</td>
-                <td>{record.totalInterest.toFixed(2)}</td>
-                <td>{record.totalContribution.toFixed(2)}</td>
+                <td>{formatNumber(record.savingsEndOfYear)}</td>{/* TOTAL SAVING END OF THE YEAR */}
+                <td>{formatNumber(record.yearlyInterest)}</td>
+                <td>{formatNumber(record.totalInterest)}</td>
+                <td>{formatNumber(record.totalContribution)}</td>
               </tr>
             ))}
 
