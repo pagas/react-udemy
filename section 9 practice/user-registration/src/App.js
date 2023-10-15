@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import AddUser from './components/User/AddUser';
 import UsersList from './components/User/UsersList';
-import Card from './components/UI/Card';
 
 
 function App() {
@@ -17,12 +16,8 @@ function App() {
 
   return (
     <div>
-      <Card>
-        <AddUser onAddUser={addUserHandler}/>
-      </Card>
-      <Card>
-        <UsersList users={users}/>  
-      </Card>
+      <AddUser onAddUser={addUserHandler}/>
+      <UsersList users={users}/>  
     </div>
   );
 }

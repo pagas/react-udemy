@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from './AddUser.module.css';
 import ErrorModal from "../Modals/ErrorModal";
 import Button from "../UI/Button";
+import Card from "../UI/Card";
 
 
 const initialUserInput = {
@@ -49,7 +50,7 @@ const AddUser = (props) => {
 
 
     return (
-        <div>
+        <Card>
             <ErrorModal show={error !== ''} text={error} onClose={handleClose} />
 
             <form className={styles.form} onSubmit={addUserHandler}>
@@ -80,7 +81,7 @@ const AddUser = (props) => {
                     </Button>
                 </p>
             </form>
-        </div>
+        </Card>
     )
 }
 
