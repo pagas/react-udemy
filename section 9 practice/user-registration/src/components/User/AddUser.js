@@ -1,25 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from './AddUser.module.css';
 import ErrorModal from "../Modals/ErrorModal";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 
-
-const initialUserInput = {
-    username: '',
-    age: ''
-}
-
 const AddUser = (props) => {
-    const [userInput, setUserInput] = useState(initialUserInput);
     const [error, setError] = useState();
+    const nameInputRef = useRef();
+    const ageInputRef = useRef();
 
     const addUserHandler = (e) => {
         e.preventDefault();
 
         const newUser = {
-            ...userInput,
-            username: userInput.username.trim(),
+            age: ageInputRef.current.value,
+            username: nameInputRef.current.value.trim(),
         };
 
         if (!newUser.username || !newUser.age) {
@@ -32,7 +27,7 @@ const AddUser = (props) => {
 
         newUser.age = +newUser.age;
 
-        if (userInput.age <= 0) {
+        if (newUser.age <= 0) {
             setError({
                 title: 'Invalid age',
                 message: 'Please enter valid age (> 0).'
@@ -40,15 +35,10 @@ const AddUser = (props) => {
             return;
         }
 
-        props.onAddUser(userInput);
-        setUserInput(initialUserInput);
+        props.onAddUser(newUser);
+        nameInputRef.current.value = '';
+        ageInputRef.current.value = '';
     };
-
-    const changeHandler = (e, inputField) => {
-        setUserInput(prev => {
-            return { ...prev, [inputField]: e.target.value }
-        })
-    }
 
     const handleClose = () => {
         setError();
@@ -60,24 +50,19 @@ const AddUser = (props) => {
             <Card>
                 <form className={styles.form} onSubmit={addUserHandler}>
                     <div className={styles['form-control']}>
-
                         <label htmlFor="username">Username</label>
                         <input
                             type="text"
-                            value={userInput.username}
-                            onChange={(e) => changeHandler(e, "username")}
+                            ref={nameInputRef}
                             id="username" />
-
                     </div>
 
                     <div className={styles['form-control']}>
                         <label htmlFor="age">Age (Years)</label>
                         <input
                             type="number"
-                            value={userInput.age}
-                            onChange={(e) => changeHandler(e, "age")}
+                            ref={ageInputRef}
                             id="age" />
-
                     </div>
 
                     <p className={styles.actions}>
