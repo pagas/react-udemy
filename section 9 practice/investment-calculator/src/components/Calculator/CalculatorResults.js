@@ -21,7 +21,7 @@ const CalculatorResults = (props) => {
   return (
     <div>
       {(props.results == null || props.results.length === 0)
-        ? <p style={{textAlign: 'center'}}>No Results</p>
+        ? <p style={{textAlign: 'center'}}>No investment calculated yet.</p>
         : <table className={styles.result}>
           <thead>
             <tr>
