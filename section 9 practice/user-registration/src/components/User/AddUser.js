@@ -12,25 +12,31 @@ const initialUserInput = {
 
 const AddUser = (props) => {
     const [userInput, setUserInput] = useState(initialUserInput);
-    const [error, setError] = useState('');
+    const [error, setError] = useState();
 
     const addUserHandler = (e) => {
         e.preventDefault();
-      
+
         const newUser = {
             ...userInput,
             username: userInput.username.trim(),
         };
-        
+
         if (!newUser.username || !newUser.age) {
-            setError('Please enter a valid name and age (non-empty values).');
+            setError({
+                title: 'Invalid input',
+                message: 'Please enter a valid name and age (non-empty values).'
+            });
             return;
         }
 
         newUser.age = +newUser.age;
 
         if (userInput.age <= 0) {
-            setError('Please enter valid age (> 0).');
+            setError({
+                title: 'Invalid age',
+                message: 'Please enter valid age (> 0).'
+            });
             return;
         }
 
@@ -45,13 +51,12 @@ const AddUser = (props) => {
     }
 
     const handleClose = () => {
-        setError('');
+        setError();
     }
-
 
     return (
         <Card>
-            <ErrorModal show={error !== ''} text={error} onClose={handleClose} />
+            {error && <ErrorModal text={error.text} message={error.message} onClose={handleClose} />}
 
             <form className={styles.form} onSubmit={addUserHandler}>
                 <div className={styles['form-control']}>
