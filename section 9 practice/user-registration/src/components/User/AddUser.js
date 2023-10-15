@@ -33,8 +33,8 @@ const AddUser = (props) => {
             return;
         }
 
-
         props.onAddUser(userInput);
+        setUserInput(initialUserInput);
     };
 
     const changeHandler = (e, inputField) => {
