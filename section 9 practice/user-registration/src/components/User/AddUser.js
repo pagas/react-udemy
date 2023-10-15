@@ -6,7 +6,7 @@ import Button from "../UI/Button";
 
 const initialUserInput = {
     username: '',
-    age: 0
+    age: ''
 }
 
 const AddUser = (props) => {
