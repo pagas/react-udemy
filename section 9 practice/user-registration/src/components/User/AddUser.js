@@ -55,38 +55,39 @@ const AddUser = (props) => {
     }
 
     return (
-        <Card>
+        <>
             {error && <ErrorModal text={error.text} message={error.message} onClose={handleClose} />}
+            <Card>
+                <form className={styles.form} onSubmit={addUserHandler}>
+                    <div className={styles['form-control']}>
 
-            <form className={styles.form} onSubmit={addUserHandler}>
-                <div className={styles['form-control']}>
+                        <label htmlFor="username">Username</label>
+                        <input
+                            type="text"
+                            value={userInput.username}
+                            onChange={(e) => changeHandler(e, "username")}
+                            id="username" />
 
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        value={userInput.username}
-                        onChange={(e) => changeHandler(e, "username")}
-                        id="username" />
+                    </div>
 
-                </div>
+                    <div className={styles['form-control']}>
+                        <label htmlFor="age">Age (Years)</label>
+                        <input
+                            type="number"
+                            value={userInput.age}
+                            onChange={(e) => changeHandler(e, "age")}
+                            id="age" />
 
-                <div className={styles['form-control']}>
-                    <label htmlFor="age">Age (Years)</label>
-                    <input
-                        type="number"
-                        value={userInput.age}
-                        onChange={(e) => changeHandler(e, "age")}
-                        id="age" />
+                    </div>
 
-                </div>
-
-                <p className={styles.actions}>
-                    <Button type="submit">
-                        Add User
-                    </Button>
-                </p>
-            </form>
-        </Card>
+                    <p className={styles.actions}>
+                        <Button type="submit">
+                            Add User
+                        </Button>
+                    </p>
+                </form>
+            </Card>
+        </>
     )
 }
 
