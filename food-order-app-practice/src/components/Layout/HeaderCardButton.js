@@ -1,5 +1,5 @@
 import styles from './HeaderCardButton.module.css';
-import CartIcon from '../Card/CardIcon';
+import CartIcon from '../Cart/CartIcon';
 
 
 const HeaderCardButton = ({ children, onClick }) => {
