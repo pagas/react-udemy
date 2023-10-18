@@ -2,16 +2,17 @@ import styles from './Header.module.css';
 import meals from '../../assets/meals.jpg';
 import HeaderCardButton from './HeaderCardButton';
 
-const Header = () => {
+const Header = ({ onShowCart }) => {
 
     const openCart = () => {
-        
+        onShowCart();
     }
+    
     return (
         <>
             <header className={styles.header}>
                 <h1>React Meals</h1>
-                
+
                 <HeaderCardButton onClick={openCart}>Cart</HeaderCardButton>
             </header>
             <div className={styles['main-image']}>
