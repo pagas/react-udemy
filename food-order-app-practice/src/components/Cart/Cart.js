@@ -1,3 +1,4 @@
+import Modal from '../UI/Modal';
 import styles from './Cart.module.css';
 import CartItem from './CartItem';
 
@@ -5,8 +6,8 @@ const Cart = () => {
     const cartItems = [{ id: 'c1', name: 'Sushi', amount: 2, price: 12.99 }]
 
     return (
-        <div>
-            <ul className={styles['cart-itmes']}>
+        <Modal>
+            <ul className={styles['cart-items']}>
                 {cartItems.map(cartItem => (
                     <CartItem {...cartItem} />
                 ))}
@@ -19,7 +20,7 @@ const Cart = () => {
                 <button className={styles['buttons--alt']}>Close</button>
                 <button className={styles.button}>Order</button>
             </div>
-        </div>
+        </Modal>
     )
 }
 
