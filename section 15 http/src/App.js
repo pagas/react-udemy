@@ -14,8 +14,6 @@ function App() {
 
       })
       const responseJSON = await response.json();
-      setLoading(false);
-
       setMovies(responseJSON.results.map(movie => ({
         id: movie.episode_id,
         title: movie.title,
@@ -24,18 +22,22 @@ function App() {
       })))
     } catch (e) {
       console.log(e)
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <React.Fragment>
       <section>
-        <button onClick={fetchMovieHandler}>Fetch Movies {loading && 'Loading...'}</button>
+        <button onClick={fetchMovieHandler}>Fetch Movies </button>
 
       </section>
       <section>
 
-        <MoviesList movies={movies} />
+        {!loading && movies.length > 0 && <MoviesList movies={movies} />}
+        {!loading && movies.length === 0 && <p>Found no movies.</p>}
+        {loading && <p>Loading...</p>}
       </section>
     </React.Fragment>
   );
