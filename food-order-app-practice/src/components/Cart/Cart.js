@@ -5,7 +5,7 @@ import CartItem from './CartItem';
 import CartContext from '../../store/cart-context';
 
 const Cart = ({ onClose }) => {
-    const {items, totalAmount} = useContext(CartContext);
+    const { items, totalAmount, addItem, removeItem } = useContext(CartContext);
     const hasItems = items.length > 0;
 
     const closeHandler = () => {
@@ -15,8 +15,12 @@ const Cart = ({ onClose }) => {
     return (
         <Modal onClose={closeHandler}>
             <ul className={styles['cart-items']}>
-                {items.map(cartItem => (
-                    <CartItem {...cartItem} />
+                {items.map((cartItem, index) => (
+                    <CartItem
+                        key={index}
+                        {...cartItem}
+                        onRemove={() => removeItem(cartItem.id)}
+                        onAdd={() => addItem(cartItem)} />
                 ))}
             </ul>
             <div className={styles.total}>
