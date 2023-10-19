@@ -9,15 +9,36 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_ITEM': {
-            let updateItems = [...state.items, action.item];
-            let updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
+            const foundItem = state.items.find(item => item.id === action.item.id)
+            let updateItems;
 
+            if (foundItem) {
+                updateItems = [...state.items];
+                updateItems[updateItems.indexOf(foundItem)] = {
+                    ...foundItem,
+                    amount: foundItem.amount + action.item.amount
+                }
+            } else {
+                updateItems = [...state.items, { ...action.item }];
+            }
+            
+            const updatedTotalAmount = state.totalAmount + (action.item.price * action.item.amount);
             return { items: updateItems, totalAmount: updatedTotalAmount }
         } case 'REMOVE_ITEM': {
             const foundItem = state.items.find(item => item.id === action.id)
-            const updateItems = state.items.filter(item => item.id !== action.id)
-            let updatedTotalAmount = state.totalAmount - foundItem.price * foundItem.amount;
+            let updateItems;
 
+            if (foundItem.amount === 1) {
+                updateItems = state.items.filter(item => item.id !== action.id)
+            } else if (foundItem.amount > 1) {
+                updateItems = [...state.items];
+                updateItems[updateItems.indexOf(foundItem)] = {
+                    ...foundItem,
+                    amount: foundItem.amount - 1
+                }
+            }
+
+            const updatedTotalAmount = state.totalAmount - foundItem.price;
             return { items: updateItems, totalAmount: updatedTotalAmount }
         } default:
     }

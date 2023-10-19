@@ -20,7 +20,7 @@ const Cart = ({ onClose }) => {
                         key={index}
                         {...cartItem}
                         onRemove={() => removeItem(cartItem.id)}
-                        onAdd={() => addItem(cartItem)} />
+                        onAdd={() => addItem({...cartItem, amount: 1})} />
                 ))}
             </ul>
             <div className={styles.total}>
