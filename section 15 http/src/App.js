@@ -2,15 +2,14 @@ import React from 'react';
 
 import MoviesList from './components/MoviesList';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-
-  const fetchMovieHandler = async () => {
+  const fetchMovieHandler = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -32,9 +31,11 @@ function App() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [])
 
-  console.log('rerendering movies: loading', loading, error);
+  useEffect(() => {
+    fetchMovieHandler();
+  }, [fetchMovieHandler])
 
   let content = <p>Found no movies.</p>;
   if (movies.length === 0) {
@@ -43,7 +44,7 @@ function App() {
     content = <MoviesList movies={movies} />
   }
 
-  if (error) { 
+  if (error) {
     content = <p>{error}</p>
   }
 
