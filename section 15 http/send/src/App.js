@@ -8,8 +8,8 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const serverUrl = 'https://udemy-react-cd666-default-rtdb.europe-west1.firebasedatabase.app/movies.json'
-
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+  
   const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
