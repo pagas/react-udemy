@@ -5,8 +5,14 @@ const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState('')
   const [nameTouched, setNameTouched] = useState(false);
 
+
   const enteredNameIsValid = enteredName.trim() !== '';
   const nameInputInvalid = !enteredNameIsValid && nameTouched;
+  let formIsValid = false;
+
+  if (enteredNameIsValid) {
+    formIsValid = true;
+  }
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -45,7 +51,7 @@ const SimpleInput = (props) => {
       </div>
       {nameInputInvalid && <p className='error-text'>Name must be empty</p>}
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
 
 
