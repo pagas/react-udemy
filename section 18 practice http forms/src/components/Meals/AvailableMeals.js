@@ -9,7 +9,7 @@ const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
 
   const { isLoading, error, sendRequest } = useHttp({
-    url: process.env.REACT_APP_SERVER_URL + 'x'
+    url: process.env.REACT_APP_SERVER_URL
   });
 
   const fetchMeal = useCallback(async () => {
