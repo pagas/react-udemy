@@ -4,10 +4,10 @@ import { useContext } from 'react';
 import styles from './MealItem.module.css';
 // import CartContext from '../../../store/cart-context';
 
-const MealItem = (props) => {
+const MealItem = ({ price, description, name, image }) => {
   // const cartCtx = useContext(CartContext);
 
-  const price = `$${props.price.toFixed(2)}`;
+  const formatedPrice = `$${price.toFixed(2)}`;
 
   const addToCartHandler = amount => {
     // cartCtx.addItem({
@@ -20,14 +20,21 @@ const MealItem = (props) => {
 
   return (
     <li className={styles['meal-item']}>
-      <div>
-        <h3>{props.name}</h3>
-        <div className={styles['meal-item-description']}>{props.description}</div>
-        <div className={styles['meal-item-price']}>{price}</div>
-      </div>
-      <div className={styles['meal-item-actions']}>
-        {/* <MealItemForm onAddToCart={addToCartHandler} /> */}
-      </div>
+      <article>
+        <img src={`http://localhost:3000/${image}`} alt={name} />
+
+        <div>
+          <h3>{name}</h3>
+          <p className={styles['meal-item-price']}>{formatedPrice}</p>
+          <p className={styles['meal-item-description']}>{description}</p>
+        </div>
+        <div className={styles['meal-item-actions']}>
+          {/* <MealItemForm onAddToCart={addToCartHandler} /> */}
+          <button>Add to Cart</button>
+        </div>
+
+      </article>
+
     </li>
   );
 };
