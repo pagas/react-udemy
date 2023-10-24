@@ -45,7 +45,7 @@ const Meals = () => {
     content = meals.map((meal) => (
       <MealItem
         key={meal.id}
-        {...meal}
+        meal={meal}
       />
     ))
 

@@ -4,20 +4,15 @@ import { useContext } from 'react';
 import styles from './MealItem.module.css';
 import { currencyFormatter } from '../../../util/formating';
 import Button from '../../UI/Button';
-// import CartContext from '../../../store/cart-context';
+import CartContext from '../../../store/cart-context';
 
-const MealItem = ({ price, description, name, image }) => {
-  // const cartCtx = useContext(CartContext);
-
-
-
-  const addToCartHandler = amount => {
-    // cartCtx.addItem({
-    //   id: props.id,
-    //   name: props.name,
-    //   amount: amount,
-    //   price: props.price
-    // });
+const MealItem = ({ meal }) => {
+  const cartContext = useContext(CartContext);
+  const { name, description, price, image } = meal;
+  
+  const addToCartHandler = () => {
+    meal.amount = 1;
+    cartContext.addItem(meal);
   };
 
   return (
@@ -32,7 +27,7 @@ const MealItem = ({ price, description, name, image }) => {
         </div>
         <div className={styles['meal-item-actions']}>
           {/* <MealItemForm onAddToCart={addToCartHandler} /> */}
-          <Button>Add to Cart</Button>
+          <Button onClick={addToCartHandler}>Add to Cart</Button>
         </div>
 
       </article>
