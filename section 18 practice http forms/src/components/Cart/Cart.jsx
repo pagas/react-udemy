@@ -10,7 +10,7 @@ import { UserProgressContext } from '../../store/UserProgressContext';
 
 const Cart = () => {
   const cartContext = useContext(CartContext);
-  const { progress, hideCart } = useContext(UserProgressContext);
+  const { progress, hideCart, showCheckout } = useContext(UserProgressContext);
   const cartIsOpen = progress === 'cart';
 
   const totalAmount = currencyFormatter.format(cartContext.totalAmount);
@@ -41,6 +41,9 @@ const Cart = () => {
     </ul>
   );
 
+  const openCheckoutHandler = () => {
+    showCheckout();
+  }
 
   return (
     <Modal className={styles.cart} open={cartIsOpen}>
@@ -50,11 +53,11 @@ const Cart = () => {
         
         <span> {totalAmount} </span>
       </p>
-      <p className={styles['modal-actions']}>
+      <p className={styles.modalActions}>
         <Button className={styles['text-button']} textOnly onClick={closeCartHandler}>
           Close
         </Button>
-        {hasItems && <Button >Go to Checkout</Button>}
+        {hasItems && <Button onClick={openCheckoutHandler} >Go to Checkout</Button>}
       </p>
     </Modal>
   );
