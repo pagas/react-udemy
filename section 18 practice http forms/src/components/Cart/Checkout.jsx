@@ -16,7 +16,8 @@ const Checkout = () => {
         hideCheckout();
     }
     return (
-        <Modal open={progress === 'checkout'}>
+        <Modal open={progress === 'checkout'}
+            onClose={progress === 'checkout' ? hideCheckout : null}>
             <form>
                 <h2>Checkout</h2>
                 <p>Total Amount:  {currencyFormatter.format(totalAmount)}</p>

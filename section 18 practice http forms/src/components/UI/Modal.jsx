@@ -5,7 +5,7 @@ import styles from './Modal.module.css';
 
 const portalElement = document.getElementById('modal');
 
-const Modal = ({ children, open, className = '' }) => {
+const Modal = ({ children, open, onClose, className = '' }) => {
   const dialogRef = useRef();
   useEffect(() => {
     const modal = dialogRef.current;
@@ -21,7 +21,12 @@ const Modal = ({ children, open, className = '' }) => {
   return (
     <>
       {createPortal(
-        <dialog ref={dialogRef} className={`${styles.modal} ${className}`}>{children}</dialog>,
+        <dialog
+          ref={dialogRef}
+          onClose={onClose}
+          className={`${styles.modal} ${className}`}>
+          {children}
+        </dialog>,
         portalElement
       )}
     </>
