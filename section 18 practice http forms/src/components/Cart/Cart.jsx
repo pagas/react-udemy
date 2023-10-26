@@ -34,8 +34,8 @@ const Cart = () => {
         <CartItem
           key={item.id}
           {...item}
-          onRemove={cartItemRemoveHandler.bind(null, item.id)}
-          onAdd={cartItemAddHandler.bind(null, item)}
+          onRemove={() => cartItemRemoveHandler(item.id)}
+          onAdd={() => cartItemAddHandler(item)}
         />
       ))}
     </ul>
@@ -47,7 +47,7 @@ const Cart = () => {
       <h2>Your Cart</h2>
       {cartItems}
       <p className={styles['cart-total']}>
-        <span> Total Amount </span>
+        
         <span> {totalAmount} </span>
       </p>
       <p className={styles['modal-actions']}>
