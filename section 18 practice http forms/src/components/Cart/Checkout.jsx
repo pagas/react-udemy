@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import styles from './Checkout.module.css';
+import modalStyles from '../UI/Modal.module.css';
 import Modal from '../UI/Modal';
 import CartContext from '../../store/cart-context';
 import { currencyFormatter } from '../../util/formating';
@@ -30,8 +31,8 @@ const Checkout = () => {
                     <Input label="City" id="city" />
                 </div>
 
-                <p className={styles.modalActions}>
-                    <Button textOnly className={styles.textButton} onClick={hideCheckout}>Close</Button>
+                <p className={modalStyles.modalActions}>
+                    <Button textOnly className={modalStyles.textButton} onClick={hideCheckout}>Close</Button>
                     <Button type="submit" onClick={checkoutHandler} >Submit Order</Button>
                 </p>
 

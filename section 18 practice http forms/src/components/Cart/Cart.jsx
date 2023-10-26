@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import Modal from '../UI/Modal';
 import CartItem from './CartItem';
 import styles from './Cart.module.css';
+import modalStyles from '../UI/Modal.module.css';
+
 import CartContext from '../../store/cart-context';
 import { currencyFormatter } from '../../util/formating';
 import Button from '../UI/Button';
@@ -53,8 +55,8 @@ const Cart = () => {
         
         <span> {totalAmount} </span>
       </p>
-      <p className={styles.modalActions}>
-        <Button className={styles['text-button']} textOnly onClick={closeCartHandler}>
+      <p className={modalStyles.modalActions}>
+        <Button className={modalStyles.textButton} textOnly onClick={closeCartHandler}>
           Close
         </Button>
         {hasItems && <Button onClick={openCheckoutHandler} >Go to Checkout</Button>}
