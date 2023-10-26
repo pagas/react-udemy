@@ -1,21 +1,20 @@
 import styles from './CartItem.module.css';
+import { currencyFormatter } from '../../util/formating';
 
-const CartItem = (props) => {
-  const price = `$${props.price.toFixed(2)}`;
+const CartItem = ({ name, amount, price, onRemove, onAdd }) => {
 
   return (
     <li className={styles['cart-item']}>
-      <div>
-        <h2>{props.name}</h2>
-        <div >
-          <span className={classes.price}>{price}</span>
-          <span className={classes.amount}>x {props.amount}</span>
-        </div>
-      </div>
-      <div className={styles['cart-item-actions']}>
-        <button onClick={props.onRemove}>−</button>
-        <button onClick={props.onAdd}>+</button>
-      </div>
+
+      <p>
+        {name} - {amount} - {currencyFormatter.format(price)}
+      </p>
+
+      <p className={styles['cart-item-actions']}>
+        <button onClick={onRemove}>−</button>
+        <span>{amount}</span>
+        <button onClick={onAdd}>+</button>
+      </p>
     </li>
   );
 };

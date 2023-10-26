@@ -33,9 +33,7 @@ const Cart = () => {
       {cartContext.items.map((item) => (
         <CartItem
           key={item.id}
-          name={item.name}
-          amount={item.amount}
-          price={item.price}
+          {...item}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
           onAdd={cartItemAddHandler.bind(null, item)}
         />
@@ -43,17 +41,17 @@ const Cart = () => {
     </ul>
   );
 
-  
+
   return (
     <Modal className={styles.cart} open={cartIsOpen}>
       <h2>Your Cart</h2>
       {cartItems}
       <p className={styles['cart-total']}>
-        <span>Total Amount</span>
-        <span>{totalAmount}</span>
+        <span> Total Amount </span>
+        <span> {totalAmount} </span>
       </p>
       <p className={styles['modal-actions']}>
-        <Button textOnly onClick={closeCartHandler}>
+        <Button className={styles['text-button']} textOnly onClick={closeCartHandler}>
           Close
         </Button>
         {hasItems && <Button >Go to Checkout</Button>}

@@ -1,18 +1,3 @@
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-}
-
-.modal-actions .text-button {
-  color: #1d1a16;
-}
-
-.modal-actions .text-button:hover,
-.modal-actions .text-button:active {
-  color: #312c1d;
-}
-
 .modal {
   background-color: #e4ddd4;
   border-radius: 6px;
