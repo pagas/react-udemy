@@ -11,17 +11,22 @@ import { UserProgressContext } from '../../store/UserProgressContext';
 const Checkout = () => {
     const { totalAmount } = useContext(CartContext);
     const { hideCheckout, progress } = useContext(UserProgressContext);
-    const checkoutHandler = (e) => {
+    const checkoutHandler = (event) => {
         e.preventDefault();
+
+        const formData = new FormData(event.target);
+        const customerData = Object.fromEntries(fd.entries());
+
+
+        
         hideCheckout();
     }
     return (
         <Modal open={progress === 'checkout'}
             onClose={progress === 'checkout' ? hideCheckout : null}>
-            <form>
+            <form onSubmit={checkoutHandler}>
                 <h2>Checkout</h2>
                 <p>Total Amount:  {currencyFormatter.format(totalAmount)}</p>
-
 
                 <Input label="Full Name" id="fullname" />
                 <Input label="Email" id="email" type="email" />
@@ -34,7 +39,7 @@ const Checkout = () => {
 
                 <p className={modalStyles.modalActions}>
                     <Button textOnly className={modalStyles.textButton} onClick={hideCheckout}>Close</Button>
-                    <Button type="submit" onClick={checkoutHandler} >Submit Order</Button>
+                    <Button type="submit">Submit Order</Button>
                 </p>
 
             </form>
