@@ -13,7 +13,6 @@ const Modal = ({ children, open, onClose, className = '' }) => {
       modal.showModal();
     }
     return () => {
-      console.log('open clean up', open)
       modal.close();
     }
   }, [open])

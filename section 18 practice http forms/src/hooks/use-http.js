@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef} from "react";
+import { useState, useCallback, useRef } from "react";
 
 
 const useHttp = (requestConfig) => {
@@ -10,7 +10,12 @@ const useHttp = (requestConfig) => {
     const sendRequest = useCallback(async (queryConfig) => {
         setIsLoading(true);
         setError(null);
-        const { url, method = 'GET', body, headers = {} } = {...sendRequestRef.current, ...queryConfig};
+        const {
+            url,
+            method = 'GET',
+            body,
+            headers = { 'Content-Type': 'application/json' }
+        } = { ...sendRequestRef.current, ...queryConfig };
 
         try {
             const response = await fetch(

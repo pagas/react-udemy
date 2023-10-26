@@ -7,18 +7,35 @@ import { currencyFormatter } from '../../util/formating';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
 import { UserProgressContext } from '../../store/UserProgressContext';
+import useHttp from '../../hooks/use-http';
 
 const Checkout = () => {
-    const { totalAmount } = useContext(CartContext);
+    const { totalAmount, items } = useContext(CartContext);
+    const { isLoading, error, sendRequest } = useHttp({
+        url: 'http://localhost:3000/orders'
+    });
+
+
     const { hideCheckout, progress } = useContext(UserProgressContext);
-    const checkoutHandler = (event) => {
-        e.preventDefault();
+    const checkoutHandler = async (event) => {
+        event.preventDefault();
 
         const formData = new FormData(event.target);
-        const customerData = Object.fromEntries(fd.entries());
+        const customerData = Object.fromEntries(formData.entries());
 
+        const result = await sendRequest({
+            method: 'POST',
+            body: {
+                order: {
+                    customer: customerData,
+                    items
+                }
+            }
 
-        
+        });
+
+        console.log('ordered!', result)
+
         hideCheckout();
     }
     return (
@@ -28,12 +45,12 @@ const Checkout = () => {
                 <h2>Checkout</h2>
                 <p>Total Amount:  {currencyFormatter.format(totalAmount)}</p>
 
-                <Input label="Full Name" id="fullname" />
+                <Input label="Full Name" id="name" />
                 <Input label="Email" id="email" type="email" />
                 <Input label="Street" id="street" />
 
                 <div className={styles['control-row']}>
-                    <Input label="Post code" id="postcode" />
+                    <Input label="Post code" id="postal-code" />
                     <Input label="City" id="city" />
                 </div>
 
