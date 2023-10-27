@@ -11,9 +11,18 @@ import useHttp from '../../hooks/use-http';
 
 const Checkout = () => {
     const { totalAmount, items } = useContext(CartContext);
-    const { isLoading, error, sendRequest } = useHttp({
-        url: 'http://localhost:3000/orders'
-    });
+    const { isLoading, error, sendRequest } = useHttp(
+        'http://localhost:3000/orders',
+        {
+            method: 'POST',
+            body: {
+                order: {
+                    // customer: customerData,
+                    // items
+                }
+            }
+        }
+    );
 
 
     const { hideCheckout, progress } = useContext(UserProgressContext);
@@ -23,18 +32,9 @@ const Checkout = () => {
         const formData = new FormData(event.target);
         const customerData = Object.fromEntries(formData.entries());
 
-        const result = await sendRequest({
-            method: 'POST',
-            body: {
-                order: {
-                    customer: customerData,
-                    items
-                }
-            }
+        await sendRequest();
 
-        });
-
-        console.log('ordered!', result)
+        console.log('ordered!')
 
         hideCheckout();
     }

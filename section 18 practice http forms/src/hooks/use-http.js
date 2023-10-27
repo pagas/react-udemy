@@ -1,45 +1,48 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
+async function sendHttpRequest(url, config) {
+    const response = await fetch(url, config);
+    const resData = await response.json();
 
-const useHttp = (requestConfig) => {
+    if (!response.ok) {
+        throw new Error(resData.message || 'Failed to send request');
+    }
+    return resData;
+}
+
+const useHttp = (url, config) => {
+    const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const { body, headers = { 'Content-Type': 'application/json' }, method = 'GET' } = config;
 
-    const sendRequestRef = useRef(requestConfig);
+    config.headers = headers;
+    config.body = body ? JSON.stringify(body) : null;
+    config.method = method;
 
-    const sendRequest = useCallback(async (queryConfig) => {
+    const sendRequest = useCallback(async () => {
         setIsLoading(true);
         setError(null);
-        const {
-            url,
-            method = 'GET',
-            body,
-            headers = { 'Content-Type': 'application/json' }
-        } = { ...sendRequestRef.current, ...queryConfig };
 
         try {
-            const response = await fetch(
-                url,
-                {
-                    method: method,
-                    headers: headers,
-                    body: body ? JSON.stringify(body) : null
-                }
-            );
+            const responseData = await sendHttpRequest(url, config);
 
-            if (!response.ok) {
-                throw new Error('Request failed!');
-            }
-
-            return await response.json();
+            setData(responseData);
         } catch (err) {
-            setError(err.message || 'Something went wrong!');
+            setError(err.message || 'Somethign went wrong seding request');
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [url, config]);
 
-    return { isLoading, error, sendRequest };
+    useEffect(() => {
+        console.log('usehttp mounted !')
+        if (config && config.triggerFirstLoad) {
+            sendRequest();
+        }
+    }, [sendRequest, config])
+
+    return { isLoading, error, data, sendHttpRequest };
 }
 
 
