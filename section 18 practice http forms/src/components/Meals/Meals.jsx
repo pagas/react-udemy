@@ -13,10 +13,10 @@ const Meals = () => {
 
   const { isLoading, error, data: mealsData } = useHttp('http://localhost:3000/meals', config);
 
-  let content = <p className='center'>No meals found.</p>;
+  let content = <p className={styles.center}>No meals found.</p>;
 
   if (isLoading) {
-    content = <p className='center'>Loading...</p>
+    content = <p className={styles.center}>Loading...</p>
   }
 
   if (error) {
