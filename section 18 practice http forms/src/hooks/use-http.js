@@ -5,7 +5,6 @@ async function sendHttpRequest(url, config) {
     config.headers = headers;
     config.body = body ? JSON.stringify(body) : null;
     config.method = method;
-    debugger
 
     const response = await fetch(url, config);
     const resData = await response.json();
@@ -16,8 +15,8 @@ async function sendHttpRequest(url, config) {
     return resData;
 }
 
-const useHttp = (url, config) => {
-    const [data, setData] = useState(null);
+const useHttp = (url, config, initialData) => {
+    const [data, setData] = useState(initialData);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -44,7 +43,11 @@ const useHttp = (url, config) => {
         }
     }, [sendRequest, config])
 
-    return { isLoading, error, data, sendRequest };
+    const clearData = () => {
+        setData(initialData)
+    }
+
+    return { isLoading, error, data, sendRequest , clearData};
 }
 
 

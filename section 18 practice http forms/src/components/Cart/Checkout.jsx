@@ -8,14 +8,15 @@ import Input from '../UI/Input';
 import Button from '../UI/Button';
 import { UserProgressContext } from '../../store/UserProgressContext';
 import useHttp from '../../hooks/use-http';
+import Error from '../UI/Error';
 
 const requestConfig = {
     method: 'POST'
 }
 
 const Checkout = () => {
-    const { totalAmount, items } = useContext(CartContext);
-    const { isLoading, error, data, sendRequest } = useHttp(
+    const { totalAmount, items, clearCart } = useContext(CartContext);
+    const { isLoading: isSending, error, data, sendRequest, clearData } = useHttp(
         'http://localhost:3000/orders', requestConfig
     );
 
@@ -26,19 +27,43 @@ const Checkout = () => {
         const formData = new FormData(event.target);
         const customerData = Object.fromEntries(formData.entries());
 
-
-
         await sendRequest({
             order: {
                 customer: customerData,
                 items
             }
         });
+    }
 
-        console.log('ordered!')
-
+    const handleFinish = () => {
+        clearCart();
+        clearData();
         hideCheckout();
     }
+
+    let actionsContent = (<>
+        <Button textOnly className={modalStyles.textButton} onClick={hideCheckout}>Close</Button>
+        <Button type="submit">Submit Order</Button>
+    </>);
+
+    if (isSending) {
+        actionsContent = <span>Sending order data...</span>
+    }
+
+    if (data && !error) {
+        return (<Modal
+            open={progress === 'checkout'}
+            onClose={handleFinish}
+        >
+            <h2>Succeess</h2>
+            <p>Your order was submitted successfully</p>
+            <p>We will get back to you with more datails via email within the next few minutes</p>
+            <div className='modal-actions'>
+                <Button onClick={handleFinish}>Okay</Button>
+            </div>
+        </Modal>)
+    }
+
     return (
         <Modal open={progress === 'checkout'}
             onClose={progress === 'checkout' ? hideCheckout : null}>
@@ -55,9 +80,10 @@ const Checkout = () => {
                     <Input label="City" id="city" />
                 </div>
 
+                {error && <Error title="Failed to submit order" message={error} />}
+
                 <p className={modalStyles.modalActions}>
-                    <Button textOnly className={modalStyles.textButton} onClick={hideCheckout}>Close</Button>
-                    <Button type="submit">Submit Order</Button>
+                    {actionsContent}
                 </p>
 
             </form>
