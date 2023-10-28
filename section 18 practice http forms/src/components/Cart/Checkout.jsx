@@ -9,21 +9,15 @@ import Button from '../UI/Button';
 import { UserProgressContext } from '../../store/UserProgressContext';
 import useHttp from '../../hooks/use-http';
 
+const requestConfig = {
+    method: 'POST'
+}
+
 const Checkout = () => {
     const { totalAmount, items } = useContext(CartContext);
-    const { isLoading, error, sendRequest } = useHttp(
-        'http://localhost:3000/orders',
-        {
-            method: 'POST',
-            body: {
-                order: {
-                    // customer: customerData,
-                    // items
-                }
-            }
-        }
+    const { isLoading, error, data, sendRequest } = useHttp(
+        'http://localhost:3000/orders', requestConfig
     );
-
 
     const { hideCheckout, progress } = useContext(UserProgressContext);
     const checkoutHandler = async (event) => {
@@ -32,7 +26,14 @@ const Checkout = () => {
         const formData = new FormData(event.target);
         const customerData = Object.fromEntries(formData.entries());
 
-        await sendRequest();
+
+
+        await sendRequest({
+            order: {
+                customer: customerData,
+                items
+            }
+        });
 
         console.log('ordered!')
 

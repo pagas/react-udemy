@@ -1,6 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 
 async function sendHttpRequest(url, config) {
+    const { body, headers = { 'Content-Type': 'application/json' }, method = 'GET' } = config;
+    config.headers = headers;
+    config.body = body ? JSON.stringify(body) : null;
+    config.method = method;
+    debugger
+
     const response = await fetch(url, config);
     const resData = await response.json();
 
@@ -14,18 +20,14 @@ const useHttp = (url, config) => {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { body, headers = { 'Content-Type': 'application/json' }, method = 'GET' } = config;
 
-    config.headers = headers;
-    config.body = body ? JSON.stringify(body) : null;
-    config.method = method;
 
-    const sendRequest = useCallback(async () => {
+    const sendRequest = useCallback(async (data) => {
         setIsLoading(true);
         setError(null);
 
         try {
-            const responseData = await sendHttpRequest(url, config);
+            const responseData = await sendHttpRequest(url, { ...config, body: data });
 
             setData(responseData);
         } catch (err) {
@@ -42,7 +44,7 @@ const useHttp = (url, config) => {
         }
     }, [sendRequest, config])
 
-    return { isLoading, error, data, sendHttpRequest };
+    return { isLoading, error, data, sendRequest };
 }
 
 
