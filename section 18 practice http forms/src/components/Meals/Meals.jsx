@@ -12,7 +12,7 @@ const Meals = () => {
   const [meals, setMeals] = useState([]);
   console.log('meals created!')
 
-  const { isLoading, error, data: mealsData } = useHttp('http://localhost:3000/mealsx', config);
+  const { isLoading, error, data: mealsData } = useHttp('http://localhost:3000/meals', config);
 
   let content = <p className={styles.center}>No meals found.</p>;
 
@@ -21,7 +21,7 @@ const Meals = () => {
   }
 
   if (error) {
-    content = <Error title="Failed to fetch meals" error={error} />
+    content = <Error title="Failed to fetch meals" message={error} />
   }
 
   if (mealsData && mealsData.length > 0) {
