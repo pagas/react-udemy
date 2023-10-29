@@ -1,15 +1,15 @@
 import classes from './Counter.module.css';
-import store, { couterActions } from '../store';
+import { couterActions } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Counter = () => {
   // auto add and clear store subscription
-  const counter = useSelector((state) => state.counter);
-  const showCounter = useSelector((state) => state.showCounter);
+  const counter = useSelector((state) => state.counter.counter);
+  const showCounter = useSelector((state) => state.counter.showCounter);
   const dispatch = useDispatch();
 
   const toggleCounterHandler = () => {
-    store.dispatch(couterActions.toggleShowCounter())
+    dispatch(couterActions.toggleShowCounter())
   };
 
   const addCounterHandler = () => dispatch(couterActions.increment());
