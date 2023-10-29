@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 const Counter = () => {
   // auto add and clear store subscription
   const counter = useSelector((state) => state.counter);
+  const showCounter = useSelector((state) => state.showCounter);
   const dispatch = useDispatch();
 
   const toggleCounterHandler = () => {
-    store.dispatch({ type: 'add' })
+    store.dispatch({ type: 'TOGGLE_SHOW_COUNTER' })
   };
 
   const addCounterHandler = () => dispatch({ type: 'add' });
@@ -18,7 +19,7 @@ const Counter = () => {
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {showCounter && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={addCounterHandler}>Add</button>
         <button onClick={addCounter5Handler}>Add 5</button>

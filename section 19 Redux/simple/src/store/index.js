@@ -1,16 +1,21 @@
 import { createStore } from 'redux';
 
-const initialState = { counter: 0 }
+const initialState = { counter: 0, showCounter: true }
 
 const counterReducer = (state, action) => {
+    let newState = { ...state };
+    
     if (action.type === 'add') {
-
-        return { counter: state.counter + (action.step ? action.step : 1) }
+        newState.counter = state.counter + (action.step ? action.step : 1);
     }
     if (action.type === 'reduce') {
-        return { counter: state.counter - (action.step ? action.step : 1) }
+        newState.counter = state.counter - (action.step ? action.step : 1);
     }
-    return state;
+    if (action.type === 'TOGGLE_SHOW_COUNTER') {
+        newState.showCounter = !state.showCounter;
+    }
+
+    return newState;
 }
 
 const store = createStore(counterReducer, initialState);
